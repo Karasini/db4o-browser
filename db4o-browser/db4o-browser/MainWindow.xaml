@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525">
     <Grid>
-        
+        <Button x:Name="openFile" Content="Button" HorizontalAlignment="Left" Margin="16,9,0,0" VerticalAlignment="Top" Width="75"/>
+        <TreeView x:Name="treeView" HorizontalAlignment="Left" Height="281" Margin="137,9,0,0" VerticalAlignment="Top" Width="342"/>
+
     </Grid>
 </Window>

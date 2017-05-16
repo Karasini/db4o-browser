@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Db4objects.Db4o;
+using Microsoft.Win32;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +22,36 @@ namespace db4o_browser
     /// </summary>
     public partial class MainWindow : Window
     {
+        IObjectContainer db;
+
         public MainWindow()
         {
             InitializeComponent();
+            InitEvents();
+        }
+
+        private void InitEvents()
+        {
+            openFile.Click += (s, e) =>
+            {
+                OpenFileDialog openFile = new OpenFileDialog();
+                if (openFile.ShowDialog() == true)
+                {
+                    try
+                    {
+                        db = Db4oEmbedded.OpenFile(openFile.FileName);
+                        IObjectSet objectsList = db.QueryByExample(null);
+                        foreach (var item in objectsList)
+                        {
+                            treeView.Items.Add(item);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.Message);
+                    }
+                }
+            };
         }
     }
 }
